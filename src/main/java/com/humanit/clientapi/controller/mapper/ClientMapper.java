@@ -39,7 +39,7 @@ public class ClientMapper {
 
     public void copyInto(ClientRequest request, Client client) {
         client.setFirstName(request.firstName());
-        client.setLastName(request.lastName()); // Assuming fastName is the correct field in entity
+        client.setLastName(request.lastName()); // Assuming astName is the correct field in entity
         client.setTaxIdentifier(request.taxIdentifier());
         client.setEmail(request.email());
         client.setPhoneNumber(request.phoneNumber());
