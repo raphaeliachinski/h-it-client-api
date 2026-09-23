@@ -4,11 +4,10 @@ API RESTful em Java 21 + Spring Boot 4 para gestão de **clientes** e seus **doc
 com CRUD completo, autenticação JWT e banco H2 em memória versionado por Liquibase.
 
 
-
-
 ### Reproduzir o ambiente
 
-Pré-requisitos: Docker, Ollama e Opencode instalalados
+Pré-requisitos: Docker, Ollama e OpenCode instalalados, com o servidor do Ollama e execução (`ollama serve`)
+
 
 ```bash
 # 1. baixar o modelo base
@@ -38,9 +37,16 @@ Os agents disponíveis (`architect`, `backend`, `tester`, `reviewer`) estão def
 
 Docker tem que estar préviamente instalado
 ```
+chmod +x deploy.sh
 ./deploy.sh
 ```
-A aplicação estará disponível em http://localhost:8080/
+A aplicação estará disponível em http://localhost:8080/, após disponível poderá testar utilizando o script:
+
+```
+chmod +x test-flow.sh
+./test-flow.sh
+```
+ou acessando a url do Swagger http://localhost:8080/swagger-ui/index.html
 
 
 ### Conclusão 
