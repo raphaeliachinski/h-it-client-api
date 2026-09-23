@@ -87,7 +87,7 @@
 - Prefers the tool `write` for full replacement instead of `edit`
 - Do not invent methods on existing classes. Open the class and check first.
 - After ANY change to Java code, run `./mvnw -q test` and fix all errors before continuing.
-
+- Import `jakarta.servlet` instead of `javax.servlet`
 
 ## JPA entities instructions
 - Getters and setters for all fields
@@ -97,3 +97,13 @@
 - Frameworks: JUnit + MockMvc + Mockito (spring-boot-starter-test, spring-security-test) 
 - At lest one test per endpoint (6 endpoints == 6 tests), with @WebMvcTest
 - One integration test testing proving atomicity when saving the client and its documents
+
+## Version constraints — do NOT use pre-2023 APIs
+- Spring Security 7: no WebSecurityConfigurerAdapter, no antMatchers,
+  no authorizeRequests, no .and() chaining. Use a SecurityFilterChain
+  bean with lambda DSL and requestMatchers.
+- Servlet API: jakarta.servlet, never javax.servlet.
+- JJWT 0.12: Jwts.builder().subject().expiration().signWith(key);
+  Jwts.parser().verifyWith(key).build().parseSignedClaims(token).
+  No setSubject, no parserBuilder, no signWith(key, algorithm).
+- Jackson 3 (tools.jackson), not com.fasterxml.

@@ -1,20 +1,24 @@
 package com.humanit.clientapi.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.humanit.clientapi.config.JwtConfig;
+import com.humanit.clientapi.config.SecurityConfig;
 import com.humanit.clientapi.controller.dto.ClientRequest;
 import com.humanit.clientapi.controller.dto.ClientResponse;
 import com.humanit.clientapi.controller.dto.DocumentRequest;
 import com.humanit.clientapi.controller.dto.DocumentResponse;
+import com.humanit.clientapi.security.JwtAuthenticationFilter;
+import com.humanit.clientapi.security.JwtUtil;
 import com.humanit.clientapi.service.ClientService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.json.JsonMapper;
@@ -32,12 +36,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ClientController.class)
 @AutoConfigureMockMvc(addFilters = false)
+@Import({SecurityConfig.class, JwtAuthenticationFilter.class, JwtUtil.class, JwtConfig.class})
 class ClientControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-
+    @Autowired JwtUtil jwtUtil;
     @Autowired
     private JsonMapper jsonMapper;
 
@@ -62,11 +67,10 @@ class ClientControllerTest {
 
         sampleResponse = new ClientResponse(1L, "John", "Doe", "123.456.789-00", "john.doe@example.com", "11987654321", List.of(docRes1, docRes2));
     }
-
+    @WithMockUser
     @Test
     void createClient_returns201WithLocation() throws Exception {
         given(clientService.save(any(ClientRequest.class))).willReturn(sampleResponse);
-
         mockMvc.perform(post("/api/clients")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonMapper.writeValueAsString(sampleRequest)))

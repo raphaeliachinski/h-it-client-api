@@ -21,8 +21,8 @@ server:
   port: 8080
 app:
   jwt:
-    secret: "$(openssl rand -base64 48)"
-    expiration-minutes: 60
+    secret: "jkXuhnIe/C/JfaYo8Pc9iit2IlRXmyKoj+q4v5JptoqK9yyOXnH/1ik9+KHlRpUQ"
+    expiration: 36000
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
