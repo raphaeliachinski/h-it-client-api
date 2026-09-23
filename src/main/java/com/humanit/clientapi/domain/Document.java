@@ -18,6 +18,24 @@ public class Document {
     @JoinColumn(name = "client_id")
     private Client client;
 
+    public Document() {
+    }
+
+    public Document(String number, String description, LocalDate expirationDate, Client client) {
+        this.number = number;
+        this.description = description;
+        this.expirationDate = expirationDate;
+        this.client = client;
+    }
+
+    public Document(Long id, String number, String description, LocalDate expirationDate, Client client) {
+        this.id = id;
+        this.number = number;
+        this.description = description;
+        this.expirationDate = expirationDate;
+        this.client = client;
+    }
+
     // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

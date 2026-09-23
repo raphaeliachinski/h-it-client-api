@@ -4,10 +4,11 @@ import com.humanit.clientapi.domain.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    boolean existsByTaxIdentifier(String taxIdentifier);
-    Optional<Client> findByTaxIdentifier(String taxIdentifier);
+    Optional<Client> findById(Long id);
+    List<Client> findAll();
 }

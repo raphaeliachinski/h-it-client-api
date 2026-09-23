@@ -12,13 +12,27 @@ public class Client {
     private Long id;
 
     private String firstName;
-    private String fastName;
+    private String lastName;
     private String taxIdentifier;
     private String email;
     private String phoneNumber;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Document> documents = new ArrayList<>();
+
+    // No-args constructor
+    public Client() {
+    }
+
+    // Constructor with parameters
+    public Client(String firstName, String lastName, String taxIdentifier, String email, String phoneNumber, List<Document> documents) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.taxIdentifier = taxIdentifier;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.documents = documents;
+    }
 
     // Getters and setters
     public Long getId() { return id; }
@@ -27,8 +41,8 @@ public class Client {
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public String getFastName() { return fastName; }
-    public void setFastName(String fastName) { this.fastName = fastName; }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
     public String getTaxIdentifier() { return taxIdentifier; }
     public void setTaxIdentifier(String taxIdentifier) { this.taxIdentifier = taxIdentifier; }
