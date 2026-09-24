@@ -4,8 +4,7 @@ set -e
 # Build the JAR file
 ./mvnw package
 
-docker stop client-api-container
-docker rm client-api-container
+docker rm -f client-api-container 2>/dev/null || true
 
 
 # Build Docker image
